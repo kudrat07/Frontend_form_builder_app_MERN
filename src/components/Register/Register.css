@@ -1,0 +1,14 @@
+.signUp-btn{
+    cursor: pointer;
+    width: 80px;
+    padding: 8px;
+    background-color:brown;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    margin: 1rem;
+}
+.loading-state{
+    cursor:no-drop;
+    background-color:rgb(231, 75, 75);
+}

@@ -1,0 +1,136 @@
+.login-container {
+  height: 100vh;
+  background: linear-gradient(0deg, #121212, #121212),
+    linear-gradient(0deg, #18181b, #18181b);
+  position: relative;
+}
+.orange-logo,
+.ellipse-first,
+.ellipse-second {
+  position: absolute;
+}
+.orange-logo {
+  /* top: 50%;
+  transform: translateY(-50%); */
+  top: 160px;
+  left: 0;
+}
+.ellipse-first {
+  bottom: 0;
+  right: 200px;
+}
+.ellipse-second {
+  right: 0;
+  top: 80px;
+}
+
+.login-form {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-back--btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 32px 0 0 32px;
+}
+.login-input--wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+.login-text--label {
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 21px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.login-input {
+  border-radius: 12px;
+  height: 48px;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 21px;
+  letter-spacing: 0.03em;
+  background-color: transparent;
+  border: 1px solid #636364;
+  color: #636364;
+  outline: none;
+  padding: 12px;
+}
+.login-input:focus {
+  background-color: transparent;
+}
+input::placeholder {
+  color: #636364;
+}
+.login-btn {
+  text-align: center;
+  width: 100%;
+  background-color: #1a5fff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  box-shadow: 0px 4px 10px 0px #e9444b40;
+  border-radius: 12px;
+  height: 48px;
+  cursor: pointer;
+}
+.login-btn--gmail {
+  display: flex;
+  align-items: center;
+}
+.google-icon--wrapper {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 14px;
+  position: relative;
+}
+.btn-para {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.google-icon {
+  width: 20px;
+}
+.or-text {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 12px 0;
+}
+
+.login-loading--state,
+.login-btn--gmail {
+  cursor: no-drop;
+}
+
+.link-register {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 16.94px;
+  letter-spacing: 0.03em;
+  position: relative;
+  top: 24px;
+}
+.register-span {
+  text-decoration: none;
+  color: #1a5fff;
+}
