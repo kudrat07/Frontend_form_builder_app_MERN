@@ -51,7 +51,7 @@ const Landing = () => {
           </button>
         </div>
       </section>
-      <main>
+      <main className="main-img--wrapper">
         <img src={mainImg} alt="main img" className="main-img" />
       </main>
       <footer>

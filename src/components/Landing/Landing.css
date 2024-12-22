@@ -126,6 +126,12 @@
 
 /* MAIN */
 
+.main-img--wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .main-img {
   max-width: 100%;
 }
