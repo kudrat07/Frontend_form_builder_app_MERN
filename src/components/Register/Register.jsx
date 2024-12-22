@@ -13,7 +13,6 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    phone: "",
   });
 
   // handling input data
@@ -51,13 +50,6 @@ const Register = () => {
     } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
       newError.password = "Password must contain atleast one special character";
     }
-    if (!formData.phone.trim()) {
-      newError.phone = "Mobile Number is required";
-    } else if (formData.phone.length !== 10) {
-      newError.phone = "Mobile number must be exactly 10 digits long";
-    } else if (/[^0-9]/.test(formData.phone)) {
-      newError.phone = "Mobile number should contain only numeric digit";
-    }
 
     if (Object.keys(newError).length > 0) {
       toast.error(Object.values(newError)[0]);
@@ -86,7 +78,6 @@ const Register = () => {
             name: "",
             email: "",
             password: "",
-            phone: "",
           });
           navigate("/");
         } else {
@@ -106,14 +97,14 @@ const Register = () => {
       <form className="signUp-form" noValidate>
         <div className="signUp-container--form">
           <div className="signup-input--wrapper">
-            <label className="signUp-text">Name</label>
+            <label className="signUp-text">Username</label>
             <input
               className="signUp-input"
               type="text"
               name="name"
               value={formData.name}
               onChange={inputHandler}
-              placeholder="Eg.John A"
+              placeholder="Enter a username"
             />
           </div>
           <div className="signup-input--wrapper">
@@ -124,6 +115,7 @@ const Register = () => {
               value={formData.email}
               className="signUp-input"
               onChange={inputHandler}
+              placeholder="Enter your email"
             />
           </div>
           <div className="signup-input--wrapper">
@@ -134,27 +126,36 @@ const Register = () => {
               name="password"
               value={formData.password}
               onChange={inputHandler}
+              placeholder="********"
             />
           </div>
           <div className="signup-input--wrapper">
-            <label className="signUp-text">Phone</label>
+            <label className="signUp-text">Confirm Password</label>
             <input
               className="signUp-input"
               type="text"
               name="phone"
               value={formData.phone}
               onChange={inputHandler}
+              placeholder="********"
             />
           </div>
-          {loading? (<button className="signUp-btn loading-state" onClick={handleSubmit} disabled>
-            Loading...
-          </button>):(     <button className="signUp-btn" onClick={handleSubmit}>
-            Register
-          </button>)}
-     
+          {loading ? (
+            <button
+              className="signUp-btn loading-state"
+              onClick={handleSubmit}
+              disabled
+            >
+              Loading...
+            </button>
+          ) : (
+            <button className="signUp-btn" onClick={handleSubmit}>
+              Register
+            </button>
+          )}
         </div>
       </form>
-      <Link to="/">Login</Link>
+      <Link to="/login">Login</Link>
     </div>
   );
 };

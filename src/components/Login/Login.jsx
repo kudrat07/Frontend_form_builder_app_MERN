@@ -10,7 +10,7 @@ import googleIcon from "../../assets/Google Icon.png";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-const Register = () => {
+const Login = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -40,15 +40,7 @@ const Register = () => {
 
     if (!formData.password.trim()) {
       newError.password = "Password is required";
-    } else if (formData.password.length < 8) {
-      newError.password = "Password must be at least 8 characters long";
-    } else if (!/[a-z]/.test(formData.password)) {
-      newError.password = "Password must contain atleast one lowercase letter";
-    } else if (!/[A-Z]/.test(formData.password)) {
-      newError.password = "Password must contain atleast one uppercase letter";
-    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
-      newError.password = "Password must contain atleast one special character";
-    }
+    } 
     if (Object.keys(newError).length > 0) {
       toast.error(Object.values(newError)[0]);
       return false;
@@ -155,4 +147,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
