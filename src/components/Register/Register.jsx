@@ -118,7 +118,7 @@ const Register = () => {
             <input
               type="text"
               name="name"
-              value={formData.email}
+              value={formData.name}
               className="signup-input"
               onChange={inputHandler}
               placeholder="Enter a username"
