@@ -1,14 +1,140 @@
-.signUp-btn{
-    cursor: pointer;
-    width: 80px;
-    padding: 8px;
-    background-color:brown;
-    color: #fff;
-    font-size: 1rem;
-    border: none;
-    margin: 1rem;
+.signup-container {
+  background: linear-gradient(0deg, #121212, #121212),
+    linear-gradient(0deg, #18181b, #18181b);
+  position: relative;
+  min-height: 100vh;
 }
-.loading-state{
-    cursor:no-drop;
-    background-color:rgb(231, 75, 75);
+.orange-logo,
+.ellipse-first,
+.ellipse-second {
+  position: fixed;
+}
+.orange-logo {
+  top: 160px;
+  left: 0;
+}
+.ellipse-first {
+  bottom: 0;
+  right: 200px;
+}
+.ellipse-second {
+  right: -1px;
+  top: 80px;
+}
+
+.signup-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0 0 0;
+  width: 320px;
+  margin: 0 auto;
+}
+.signup-form--container{
+    width: 100%;
+}
+
+.signup-back--btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 48px 0 0 80px;
+  position: fixed;
+}
+.signup-input--wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.signup-text--label {
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 21px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+.signup-input {
+  border-radius: 12px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 21px;
+  letter-spacing: 0.03em;
+  background-color: transparent;
+  border: 1px solid #636364;
+  color: #636364;
+  outline: none;
+  padding-left: 12px;
+}
+.signup-input:focus {
+  background-color: transparent;
+}
+input::placeholder {
+  color: #636364;
+}
+.signup-btn {
+  text-align: center;
+  width: 100%;
+  background-color: #1a5fff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  box-shadow: 0px 4px 10px 0px #e9444b40;
+  border-radius: 12px;
+  height: 40px;
+  cursor: pointer;
+}
+.signup-btn--gmail {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.google-icon--wrapper {
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 14px;
+  position: relative;
+}
+.btn-para {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.google-icon {
+  width: 16px;
+}
+.signup-or-text {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 8px 0;
+}
+
+.signup-loading--state,
+.signup-btn--gmail {
+  cursor: no-drop;
+}
+
+.link-register {
+  color: #fff;
+  text-align: center;
+  font-family: "Inter";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 16.94px;
+  letter-spacing: 0.03em;
+  position: relative;
+  top: 24px;
+}
+.register-span {
+  text-decoration: none;
+  color: #1a5fff;
 }

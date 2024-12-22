@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import toast from "react-hot-toast";
-
+import backArrowLogo from "../../assets/arrow_back.png";
+import orangeLogo from "../../assets/login-orange-logo.png";
+import ellipseFirst from "../../assets/login-Ellipse 1.png";
+import ellipseSecond from "../../assets/login-Ellipse 2.png";
+import googleIcon from "../../assets/Google Icon.png";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Register = () => {
@@ -13,6 +17,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   // handling input data
@@ -28,7 +33,7 @@ const Register = () => {
   const validateError = () => {
     const newError = {};
     if (!formData.name.trim()) {
-      newError.name = "Name is required";
+      newError.name = "Username is required";
     } else if (!(formData.name.length > 2)) {
       newError.name = "Name should be at least 3 characters long";
     }
@@ -78,6 +83,7 @@ const Register = () => {
             name: "",
             email: "",
             password: "",
+            confirmPassword: "",
           });
           navigate("/");
         } else {
@@ -91,37 +97,48 @@ const Register = () => {
     }
   };
 
+  const handleBackBtn = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="signUp-container">
-      <h1>Sign Up</h1>
-      <form className="signUp-form" noValidate>
-        <div className="signUp-container--form">
+    <div className="signup-container">
+      <button className="signup-back--btn" onClick={handleBackBtn}>
+        <img src={backArrowLogo} alt="arrow back logo" />
+      </button>
+
+      <img src={orangeLogo} alt="orange color logo" className="orange-logo" />
+      <img src={ellipseFirst} alt="half circle" className="ellipse-first" />
+      <img src={ellipseSecond} alt="half second" className="ellipse-second" />
+
+      <form className="signup-form" noValidate>
+        <div className="signup-form--container">
           <div className="signup-input--wrapper">
-            <label className="signUp-text">Username</label>
+            <label className="signup-text--label">Username</label>
             <input
-              className="signUp-input"
               type="text"
               name="name"
-              value={formData.name}
+              value={formData.email}
+              className="signup-input"
               onChange={inputHandler}
               placeholder="Enter a username"
             />
           </div>
           <div className="signup-input--wrapper">
-            <label className="signUp-text">Email</label>
+            <label className="signup-text--label">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
-              className="signUp-input"
+              className="signup-input"
               onChange={inputHandler}
               placeholder="Enter your email"
             />
           </div>
           <div className="signup-input--wrapper">
-            <label className="signUp-text">Password</label>
+            <label className="signup-text--label">Password</label>
             <input
-              className="signUp-input"
+              className="signup-input"
               type="password"
               name="password"
               value={formData.password}
@@ -130,32 +147,44 @@ const Register = () => {
             />
           </div>
           <div className="signup-input--wrapper">
-            <label className="signUp-text">Confirm Password</label>
+            <label className="signup-text--label">Confirm Password</label>
             <input
-              className="signUp-input"
-              type="text"
-              name="phone"
-              value={formData.phone}
+              className="signup-input"
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
               onChange={inputHandler}
               placeholder="********"
             />
           </div>
           {loading ? (
             <button
-              className="signUp-btn loading-state"
+              className="signup-btn signup-loading--state"
               onClick={handleSubmit}
               disabled
             >
               Loading...
             </button>
           ) : (
-            <button className="signUp-btn" onClick={handleSubmit}>
-              Register
+            <button className="signup-btn" onClick={handleSubmit}>
+              Sign Up
             </button>
           )}
+          <p className="signup-or-text">OR</p>
+          <button className="signup-btn signup-btn--gmail" disabled>
+            <figure className="google-icon--wrapper">
+              <img src={googleIcon} alt="google icon" className="google-icon" />
+            </figure>
+            <p className="btn-para">Sign Up with Google</p>
+          </button>
+        <p className="link-register">
+          Already have an account?{" "}
+          <Link to="/login" className="register-span">
+            Login
+          </Link>
+        </p>
         </div>
       </form>
-      <Link to="/login">Login</Link>
     </div>
   );
 };
