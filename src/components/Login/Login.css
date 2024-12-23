@@ -2,7 +2,9 @@
   height: 100vh;
   background: linear-gradient(0deg, #121212, #121212),
     linear-gradient(0deg, #18181b, #18181b);
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .orange-logo,
 .ellipse-first,
@@ -32,14 +34,15 @@
 }
 .login-form--container {
   width: 100%;
-  margin-top: 40px;
 } 
 
 .login-back--btn {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  margin: 48px 0 0 80px;
+  position: fixed;
+  top: 32px;
+  left: 60px;
 }
 .login-input--wrapper {
   display: flex;

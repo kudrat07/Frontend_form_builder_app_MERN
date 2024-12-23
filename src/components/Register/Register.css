@@ -3,6 +3,9 @@
     linear-gradient(0deg, #18181b, #18181b);
   position: relative;
   min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .orange-logo,
 .ellipse-first,
@@ -26,7 +29,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 80px 0 0 0;
   width: 320px;
   margin: 0 auto;
 }
@@ -38,8 +40,9 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  margin: 48px 0 0 80px;
   position: fixed;
+  top: 32px;
+  left: 60px;
 }
 .signup-input--wrapper {
   display: flex;

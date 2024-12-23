@@ -68,7 +68,7 @@ const Login = () => {
             email: "",
             password: "",
           });
-          navigate("/");
+          navigate("/dashboard");
         } else {
           toast.error(data.message || "Registration failed,  Try again!");
         }

@@ -85,7 +85,7 @@ const Register = () => {
             password: "",
             confirmPassword: "",
           });
-          navigate("/");
+          navigate("/dashboard");
         } else {
           toast.error(data.message || "Registration failed,  Try again!");
         }

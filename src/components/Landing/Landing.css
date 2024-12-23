@@ -80,6 +80,7 @@
 }
 
 .hero-container {
+  max-width: 900px;
   width: 80vw;
   display: flex;
   flex-direction: column;
@@ -130,6 +131,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+
 }
 
 .main-img {
