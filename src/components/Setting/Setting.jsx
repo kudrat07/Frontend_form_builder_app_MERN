@@ -3,6 +3,7 @@ import styles from "./setting.module.css";
 import userLogo from "../../assets/user-logo.png";
 import viewLogo from "../../assets/view.png";
 import lockLogo from "../../assets/lock.png";
+import logoutLogo from "../../assets/logout.png";
 
 const Setting = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -63,6 +64,10 @@ const Setting = () => {
         </div>
         <button className = {styles.btnSubmit}>Submit</button>
       </form>
+      <button className={styles.logoutBtn}>
+        <img src={logoutLogo} alt="logo" className={styles.logoutLogo} />
+        Logout
+      </button>
     </div>
   );
 };

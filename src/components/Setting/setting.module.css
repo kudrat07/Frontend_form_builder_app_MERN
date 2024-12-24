@@ -1,3 +1,10 @@
+body{
+  background: linear-gradient(0deg, #121212, #18181b);
+  min-height: 100vh;
+  overflow: hidden;
+
+
+}
 .heading {
   color: #fff;
 }
@@ -7,6 +14,8 @@
   align-items: center;
   justify-content: center;
   margin-top: 48px;
+  position: relative;
+  
 }
 
 .heading {
@@ -14,7 +23,7 @@
   font-size: 22px;
   font-weight: 600;
   line-height: 29.96px;
-  margin-bottom: 60px;
+  margin-bottom: 56px;
 }
 
 .inputContainer {
@@ -75,4 +84,21 @@
   line-height: 26.28px;
   text-align: center;
   color: #fff;
+}
+.logoutBtn {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 60px;
+  bottom: 48px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #CF3636;
+  gap: 12px;
+  cursor: pointer;
 }

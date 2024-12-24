@@ -5,12 +5,12 @@ import deleteSvg from "../../assets/delete-svg.png";
 import addFileSvg from "../../assets/add-svg.png";
 import CreateFolder from "../CreateFolderModel/CreateFolder";
 import CreateFormModel from "../CreateFormModel/CreateFormModel";
-import Setting from "../Setting/Setting";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [showFolderModal, setShowFolderModal] = useState(false);
   const [FormModal, setFormModal] = useState(false);
-  const [setting, setSetting] = useState(false);
+  const navigate = useNavigate();
 
   const showModal = () => {
     setShowFolderModal((prev) => !prev);
@@ -25,7 +25,7 @@ const Dashboard = () => {
   };
 
   const settingHander = () => {
-    setSetting((prev) => !prev);
+    navigate("/setting");
   };
 
   const handleSelectChange = (e) => {
@@ -37,16 +37,14 @@ const Dashboard = () => {
   return (
     <div>
       <div className={styles.container}>
-        <nav>
+        <nav className={styles.nav}>
           <select className={styles.select} onChange={handleSelectChange}>
             <option>Dewank Rastogi workspace's</option>
             <option>Setting</option>
             <option className={styles.logout}>Logout</option>
           </select>
         </nav>
-        {setting ? (
-          <Setting />
-        ) : (
+       
           <div className={styles.content}>
             <div className={styles.folderWrapper}>
               <button className={styles.createFolderBtn} onClick={showModal}>
@@ -86,7 +84,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        )}
       </div>
     </div>
   );

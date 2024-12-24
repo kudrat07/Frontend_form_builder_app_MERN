@@ -5,6 +5,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import Settingpage from "./pages/SettingPage/SettingPage";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<DashboardPage />} /> 
+          <Route path="/setting" element={<Settingpage />} />
         </Routes>
       </BrowserRouter>
     </div>
