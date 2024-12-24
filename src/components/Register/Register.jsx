@@ -79,6 +79,8 @@ const Register = () => {
         const data = await response.json();
         if (response.ok) {
           toast.success("Registration successful");
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("username",data.username)
           setFormData({
             name: "",
             email: "",

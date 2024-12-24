@@ -11,6 +11,20 @@
   justify-content: center;
   height: 56px;
   border-bottom: 1px solid #ffffff29;
+  position: relative;
+}
+.shareBtn{
+  position: absolute;
+  right: 64px;
+  background-color: #1A5FFF;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 500;
 }
 .select {
   border: 1px solid #ffffff29;

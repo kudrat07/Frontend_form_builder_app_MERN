@@ -1,3 +1,11 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .overlay {
     position: absolute;
     top: 52%;
@@ -5,7 +13,7 @@
     transform: translate(50%, -52%);
     width: 480px;
     max-width: 80vw;
-    z-index: 1000;
+    z-index: 10;
     background: linear-gradient(0deg, #121212, #18181b);
     border: 1px solid #47474a;
     border-radius: 16px;

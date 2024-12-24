@@ -40,7 +40,7 @@ const Login = () => {
 
     if (!formData.password.trim()) {
       newError.password = "Password is required";
-    } 
+    }
     if (Object.keys(newError).length > 0) {
       toast.error(Object.values(newError)[0]);
       return false;
@@ -64,6 +64,8 @@ const Login = () => {
         const data = await response.json();
         if (response.ok) {
           toast.success("Logged in successfully!");
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("username", data.username);
           setFormData({
             email: "",
             password: "",
@@ -136,11 +138,14 @@ const Login = () => {
             <figure className="google-icon--wrapper">
               <img src={googleIcon} alt="google icon" className="google-icon" />
             </figure>
-           <p className="btn-para">Sign In with Google</p> 
+            <p className="btn-para">Sign In with Google</p>
           </button>
         </div>
-        <p className="link-register">Don't have an account? <Link to="/register"
-         className="register-span">Register now</Link>
+        <p className="link-register">
+          Don't have an account?{" "}
+          <Link to="/register" className="register-span">
+            Register now
+          </Link>
         </p>
       </form>
     </div>

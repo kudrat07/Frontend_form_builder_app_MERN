@@ -8,6 +8,11 @@ const CreateFolder = ({showModal}) => {
         showModal();
     }
   return (
+    <>
+    <div 
+    className={styles.modal}
+    onClick={showModal}
+    ></div>
     <div className={styles.overlay}>
       <div className={styles.container}>
         <h1 className={styles.title}>Create New Folder</h1>
@@ -35,6 +40,7 @@ const CreateFolder = ({showModal}) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

@@ -7,6 +7,11 @@ const CreateFormModel = ({showFormModal}) => {
         showFormModal();
     }
   return (
+    <>
+    <div 
+    onClick={showFormModal}
+    className={styles.modal}
+    ></div>
    <div className={styles.overlay}>
          <div className={styles.container}>
            <h1 className={styles.title}>Create New Form</h1>
@@ -35,6 +40,7 @@ const CreateFormModel = ({showFormModal}) => {
            </form>
          </div>
        </div>
+       </>
   )
 }
 

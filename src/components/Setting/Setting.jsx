@@ -4,13 +4,21 @@ import userLogo from "../../assets/user-logo.png";
 import viewLogo from "../../assets/view.png";
 import lockLogo from "../../assets/lock.png";
 import logoutLogo from "../../assets/Logout.png";
+import {useNavigate} from "react-router-dom";
 
 const Setting = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate();
 
     const togglePasswordVisibility = (e) => {
         e.preventDefault();
         setPasswordVisible((prev) => !prev);
+    }
+
+    const logoutHandler = () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      navigate("/")
     }
 
   return (
@@ -64,7 +72,10 @@ const Setting = () => {
         </div>
         <button className = {styles.btnSubmit}>Submit</button>
       </form>
-      <button className={styles.logoutBtn}>
+      <button 
+      className={styles.logoutBtn}
+      onClick={logoutHandler}
+      >
         <img src={logoutLogo} alt="logo" className={styles.logoutLogo} />
         Logout
       </button>
