@@ -3,7 +3,7 @@ import styles from "./setting.module.css";
 import userLogo from "../../assets/user-logo.png";
 import viewLogo from "../../assets/view.png";
 import lockLogo from "../../assets/lock.png";
-import logoutLogo from "../../assets/logout.png";
+import logoutLogo from "../../assets/Logout.png";
 
 const Setting = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
