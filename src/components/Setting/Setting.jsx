@@ -5,10 +5,12 @@ import viewLogo from "../../assets/view.png";
 import lockLogo from "../../assets/lock.png";
 import logoutLogo from "../../assets/Logout.png";
 import {useNavigate} from "react-router-dom";
+import useTheme from "../../contexts/Theme";
 
 const Setting = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const navigate = useNavigate();
+    const {themeMode} = useTheme();
 
     const togglePasswordVisibility = (e) => {
         e.preventDefault();
@@ -22,13 +24,14 @@ const Setting = () => {
     }
 
   return (
-    <div className={styles.container}>
-      <h4 className={styles.heading}>Setting</h4>
+    <div className={`${styles.container} ${styles[themeMode]}`}>
+    <div className={styles.content}>
+      <h4 className={`${styles.heading} ${styles[themeMode]}`}>Setting</h4>
       <form noValidate className={styles.form}>
         <div className={styles.inputContainer}>
           <img src={userLogo} alt="user logo" className={styles.inputIcon} />
           <input type="text" placeholder="Name" 
-          className={styles.input}
+          className={`${styles.input} ${styles[themeMode]}`}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -36,7 +39,7 @@ const Setting = () => {
           <input 
           type="email"
            placeholder="Update Email" 
-           className={styles.input}
+           className={`${styles.input} ${styles[themeMode]}`}
            />
           <button className={styles.viewBtn}>
             <img src={viewLogo} alt="logo" />
@@ -47,7 +50,7 @@ const Setting = () => {
           <input 
           type={passwordVisible ? "text" : "password"}
           placeholder="Old Password" 
-          className={styles.input}
+          className={`${styles.input} ${styles[themeMode]}`}
           />
           <button 
           className={styles.viewBtn}
@@ -61,13 +64,13 @@ const Setting = () => {
           <input 
           type={passwordVisible ? "text" : "password"}
            placeholder="New Password"
-           className={styles.input}
+           className={`${styles.input} ${styles[themeMode]}`}
             />
           <button 
           className={styles.viewBtn}
             onClick={togglePasswordVisibility}
           >
-            <img src={viewLogo} alt="logo" />
+            <img src={viewLogo} alt="logo"/>
           </button>
         </div>
         <button className = {styles.btnSubmit}>Submit</button>
@@ -79,6 +82,7 @@ const Setting = () => {
         <img src={logoutLogo} alt="logo" className={styles.logoutLogo} />
         Logout
       </button>
+      </div>
     </div>
   );
 };

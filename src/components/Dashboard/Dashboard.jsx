@@ -8,7 +8,9 @@ import CreateFormModel from "../CreateFormModel/CreateFormModel";
 import DeleteModal from "../DeleteFolderModal/DeleteModal";
 import DeleteFormModal from "../DeleteFormModal/DeleteFormModal";
 import ShareModal from "../ShareModal/ShareModal";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { useNavigate } from "react-router-dom";
+import useTheme from "../../contexts/Theme";
 
 const Dashboard = () => {
   const [showFolderModal, setShowFolderModal] = useState(false);
@@ -50,16 +52,26 @@ const Dashboard = () => {
     }
   };
 
-  return (
-    <div>
-      <div className={styles.container}>
-        <nav className={styles.nav}>
-          <select className={styles.select} onChange={handleSelectChange}>
-            {token && <option>{username}'s workspace</option>}
 
-            <option>Setting</option>
-            <option className={styles.logout}>Logout</option>
+  const {themeMode} = useTheme();
+
+
+  
+
+  return (
+    <>
+      <div className={`${styles.container} ${styles[themeMode]}`}>
+        <nav className={`${styles.nav} ${styles[themeMode]}`}>
+          <select className={`${styles.select} ${styles[themeMode]}`} onChange={handleSelectChange}>
+            {token && <option className={`${styles.option} ${styles[themeMode]}`}> {username}'s workspace</option>}
+
+            <option className={`${styles.option} ${styles[themeMode]}`}>Setting</option>
+            <option className={`${styles.logout} ${styles.option} ${styles[themeMode]}`}>Logout</option>
           </select>
+
+          <div className={styles.themeToggler}>
+          <ThemeToggle/>
+          </div>
           <button 
             onClick={showShareModal}
           className={styles.shareBtn}
@@ -69,12 +81,12 @@ const Dashboard = () => {
 
         <div className={styles.content}>
           <div className={styles.folderWrapper}>
-            <button className={styles.createFolderBtn} onClick={showModal}>
-              <img src={folderSvg} alt="svg" /> Create a folder
+            <button className={`${styles.createFolderBtn} ${styles[themeMode]}`} onClick={showModal}>
+              <img src={folderSvg} alt="svg" className={`${styles.img} ${styles[themeMode]}`}/> Create a folder
             </button>
             {showFolderModal && <CreateFolder showModal={showModal} />}
-            <div className={styles.folder}>
-              <p className={styles.folderName}>Computer Network</p>
+            <div className={`${styles.folder} ${styles[themeMode]}`}>
+              <p className={`${styles.folderName} ${styles[themeMode]}`}>Computer Network</p>
               <button
                 className={styles.deleteBtn}
                 onClick={showDeleteFolderModal}
@@ -94,7 +106,7 @@ const Dashboard = () => {
               {FormModal && <CreateFormModel showFormModal={showFormModal} />}
               <p className={styles.fileText}>Create a typebot</p>
             </div>
-            <div className={styles.form}>
+            <div className={`${styles.form} ${styles[themeMode]}`}>
               <button
                 className={styles.deleteFormBtn}
                 onClick={showDeleteFormModal}
@@ -105,7 +117,7 @@ const Dashboard = () => {
                   className={styles.deleteIcon}
                 />
               </button>
-              <p className={styles.formName}>New form</p>
+              <p className={`${styles.formName} ${styles[themeMode]}`}>New form</p>
               {deleteFormModal && (
                 <DeleteFormModal showDeleteFormModal={showDeleteFormModal} />
               )}
@@ -113,7 +125,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

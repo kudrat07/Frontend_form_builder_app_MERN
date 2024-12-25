@@ -1,8 +1,15 @@
 .container {
-  background: linear-gradient(0deg, #121212, #18181b);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s color 0.3s;
+}
+
+.container.light {
+  background-color: #ffffff;
+}
+.container.dark{
+  background: linear-gradient(0deg, #121212, #18181b);
 }
 
 .nav {
@@ -12,6 +19,13 @@
   height: 56px;
   border-bottom: 1px solid #ffffff29;
   position: relative;
+}
+.nav.light{
+  border: 1px solid #d6d6d6;
+}
+.themeToggler{
+  position: absolute;
+  right: 240px;
 }
 .shareBtn{
   position: absolute;
@@ -38,8 +52,17 @@
   border-radius: 6px;
   padding: 8px;
 }
-.select > option {
+.select.light{
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+}
+
+.option.dark {
   background-color: #1d1d1d;
+}
+.option.light{
+  background-color: #fff;
 }
 .logout {
   color: #ffa54c;
@@ -64,14 +87,13 @@
   display: flex;
   align-items: center;
   background: #ffffff14;
-  border-radius: 6px;
+  border-radius: 10px;
   padding: 12px 14px;
   gap: 8px;
 }
 
 .createFolderBtn,
 .folderName {
-  color: #ffffffeb;
   font-size: 16px;
   border: none;
   font-family: "open sans";
@@ -89,6 +111,16 @@
   background-color: transparent;
   border: none;
   display: flex;
+}
+
+.createFolderBtn.dark, .folderName.dark{
+  color: #ffffffeb; 
+}
+.createFolderBtn.light, .folder.light, .form.light{
+  border: 1px solid #d6d6d6;
+}
+.img.light{
+  filter: invert(100%);
 }
 
 .filesWrapper {
@@ -124,9 +156,12 @@
   font-weight: 400;
   line-height: 21.6px;
   text-align: center;
+}
+.formName.dark{
   color: #fff;
 }
 .fileText {
+  color: #fff;
   position: absolute;
   bottom: 56px;
 }
