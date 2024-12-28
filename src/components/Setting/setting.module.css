@@ -4,12 +4,12 @@
   min-height: 100vh; 
 }
 .container.dark{
-  background: linear-gradient(0deg, #121212, #18181b);
+  background: #1F1F23
 
 }
 
 .content{
-  padding-top: 48px;
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,7 @@
   font-size: 22px;
   font-weight: 600;
   line-height: 29.96px;
-  margin-bottom: 56px;
+  margin-bottom: 80px;
 }
 
 .heading.dark{
@@ -85,9 +85,9 @@ input.light::placeholder{
   display: flex;
   align-items: center;
 }
-.btnSubmit {
+.btnUpdate, .loadingState {
   width: 100%;
-  height: 48px;
+  height: 56px;
   text-align: center;
   border-radius: 50px;
   border: none;
@@ -99,6 +99,10 @@ input.light::placeholder{
   line-height: 26.28px;
   text-align: center;
   color: #fff;
+  margin-top: 12px;
+}
+.loadingState{
+  cursor: no-drop;
 }
 .logoutBtn {
   border: none;
@@ -110,7 +114,7 @@ input.light::placeholder{
   left: 60px;
   bottom: 48px;
   font-family: Poppins;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 24px;
   color: #CF3636;

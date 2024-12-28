@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import Settingpage from "./pages/SettingPage/SettingPage";
 import { ThemeProvider } from "./contexts/Theme";
+import WorkSpacePage from "./pages/WorkSpacePage/WorkSpacePage";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/setting" element={<Settingpage />} />
+            <Route path="/workspace" element={<WorkSpacePage/>} />
           </Routes>
         </BrowserRouter>
       </div>

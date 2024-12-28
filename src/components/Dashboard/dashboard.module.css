@@ -8,7 +8,7 @@
 .container.light {
   background-color: #ffffff;
 }
-.container.dark{
+.container.dark {
   background: linear-gradient(0deg, #121212, #18181b);
 }
 
@@ -20,17 +20,17 @@
   border-bottom: 1px solid #ffffff29;
   position: relative;
 }
-.nav.light{
+.nav.light {
   border: 1px solid #d6d6d6;
 }
-.themeToggler{
+.themeToggler {
   position: absolute;
   right: 240px;
 }
-.shareBtn{
+.shareBtn {
   position: absolute;
   right: 64px;
-  background-color: #1A5FFF;
+  background-color: #1a5fff;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -52,7 +52,7 @@
   border-radius: 6px;
   padding: 8px;
 }
-.select.light{
+.select.light {
   color: #000;
   background-color: #fff;
   border: 1px solid #d6d6d6;
@@ -61,7 +61,7 @@
 .option.dark {
   background-color: #1d1d1d;
 }
-.option.light{
+.option.light {
   background-color: #fff;
 }
 .logout {
@@ -82,24 +82,47 @@
   flex-wrap: wrap;
 }
 
+.folder {
+  min-width: 180px;
+}
+
+.selectedFolder.dark {
+  background-color: #fff;
+  color: red;
+}
+.selectedFolder.light {
+  background-color: rgb(37, 36, 36);
+}
+.selectedFolder.dark > button {
+  color: #18181b;
+}
+.selectedFolder.light > button {
+  color: #fff;
+}
+
 .createFolderBtn,
 .folder {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   background: #ffffff14;
-  border-radius: 10px;
-  padding: 12px 14px;
+  border-radius: 8px;
+  padding: 8px 14px;
   gap: 8px;
 }
 
-.createFolderBtn,
 .folderName {
+  background-color: transparent;
+  padding: 0 16px;
+}
+
+.createFolderBtn,.folderName {
   font-size: 16px;
   border: none;
   font-family: "open sans";
   font-weight: 600;
+  cursor: pointer;
 }
-.createFolderBtn,
 .deleteBtn,
 .createFileBtn,
 .deleteFormBtn {
@@ -113,13 +136,16 @@
   display: flex;
 }
 
-.createFolderBtn.dark, .folderName.dark{
-  color: #ffffffeb; 
+.createFolderBtn.dark,
+.folderName.dark {
+  color: #ffffffeb;
 }
-.createFolderBtn.light, .folder.light, .form.light{
+.createFolderBtn.light,
+.folder.light,
+.form.light {
   border: 1px solid #d6d6d6;
 }
-.img.light{
+.img.light {
   filter: invert(100%);
 }
 
@@ -157,7 +183,7 @@
   line-height: 21.6px;
   text-align: center;
 }
-.formName.dark{
+.formName.dark {
   color: #fff;
 }
 .fileText {

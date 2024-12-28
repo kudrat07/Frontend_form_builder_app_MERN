@@ -81,6 +81,7 @@ const Register = () => {
           toast.success("Registration successful");
           localStorage.setItem("token", data.token);
           localStorage.setItem("username",data.username)
+          localStorage.setItem("userId", data.userid)
           setFormData({
             name: "",
             email: "",

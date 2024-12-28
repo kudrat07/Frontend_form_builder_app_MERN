@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./folder.module.css";
 import useTheme from "../../contexts/Theme";
+import toast from "react-hot-toast";
 
-const CreateFolder = ({ showModal }) => {
-  const createFolder = (e) => {
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+
+const CreateFolder = ({ showModal, onFolderAdded }) => {
+  const [folderName, setFolderName] = useState("")
+
+  const createFolder = async (e) => {
     e.preventDefault();
+    if(!folderName.trim()) {
+      toast.error("Please enter a folder name")
+      return;
+    } 
+    try {
+      const response = await fetch(`${BACKEND_URL}/folder`, {
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({folderName}),
+      });
+      const data = await response.json();
+      if(response.ok) {
+        toast.success("Folder Created");
+        onFolderAdded();
+        setFolderName("")
+      } else{
+        toast.error(data.message || "Folder Already exist")
+      }
+    } catch (error) {
+      toast.error("Network error. Please try again")
+    }
     showModal();
+    
   };
+
   const {themeMode} = useTheme();
   return (
     <>
@@ -19,9 +50,12 @@ const CreateFolder = ({ showModal }) => {
               type="text"
               placeholder="Enter folder name"
               className={`${styles.folderInput} ${styles[themeMode]}`}
+              onChange={(e)=>setFolderName(e.target.value)}
             />
             <div className={styles.btnWrapper}>
-              <button className={styles.createBtn} onClick={createFolder}>
+              <button 
+              className={styles.createBtn}
+               onClick={createFolder}>
                 Done
               </button>
               <div className={styles.divider}></div>
@@ -35,5 +69,4 @@ const CreateFolder = ({ showModal }) => {
     </>
   );
 };
-
 export default CreateFolder;
