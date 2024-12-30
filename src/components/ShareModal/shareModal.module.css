@@ -6,7 +6,9 @@
   top: 0;
   z-index: 5;
   background: #0009;
+
 }
+
 .container {
   position: fixed;
   top: 0;
@@ -20,25 +22,33 @@
 }
 
 .overlay {
+  position: relative;
   z-index: 100;
   max-width: 600px;
   width: 70vw;
   border-radius: 20px;
   box-shadow: 0px 0px 3.8px 0px #ffffff40;
 }
-.overlay.dark {
-  background: linear-gradient(0deg, #121212, #18181b);
+.imgWrapper{
+  cursor: pointer;
+  position: absolute;
+  right: 24px;
+  top: 16px;
 }
+
 .overlay.light {
   background-color: #fff;
 }
+.overlay.dark{
+  background-color: #18181B;
+}
 .modalContent {
-  padding: 48px 32px 40px 32px;
+  padding: 48px 32px 48px 32px;
 }
 .headerWrapper {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 .heading {
   font-family: "Open Sans";
@@ -53,7 +63,7 @@
   border: none;
   outline: none;
   text-align: center;
-  padding: 6px;
+  padding: 8px;
   font-family: "Open Sans";
   font-size: 16px;
   font-weight: 600;
@@ -65,6 +75,7 @@
 }
 .select.light{
   border: 1px solid #7d8d74;
+  border-radius: 6px;
 }
 .option {
   box-shadow: 0px 1px 3.5px 0px #ffffff40;

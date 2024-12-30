@@ -112,6 +112,8 @@ const Setting = () => {
       const data = await response.json();
       if (response.ok) {
         toast.success("Profile updated successfully");
+        localStorage.setItem('username', formData.name);
+
       } else {
         toast.error(data.message || "Update failed!");
       }

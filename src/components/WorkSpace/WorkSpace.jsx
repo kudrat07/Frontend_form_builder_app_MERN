@@ -17,31 +17,31 @@ import button from "../../assets/button.png";
 import flag from "../../assets/flag-vector.png";
 import blueFlag from "../../assets/flag_blue.png";
 import deleteSvg from "../../assets/delete-svg.png";
-
+import Response from "../Response/Response"
 const WorkSpace = () => {
   const { themeMode } = useTheme();
   const imageSrc = themeMode === "light" ? blueFlag : flag;
 
   const [activeButton, setActiveButton] = useState("btnPrimary");
-  const [showTextBubble, setShowTextBubble] = useState([]);
+  const [bubbles, setBubbles] = useState([]);
 
-  const showBubble = () => {
-    setShowTextBubble([
-      ...showTextBubble,
-      { id: showTextBubble.length, value: "" },
-    ]);
+  console.log(activeButton);
+
+  const showBubble = (type) => {
+    // Add a new bubble based on type ('text' or 'image')
+    setBubbles([...bubbles, { id: bubbles.length, type, value: "" }]);
   };
 
   const handleInputChange = (id, value) => {
-    const updatedBubbles = showTextBubble.map((bubble) =>
+    const updatedBubbles = bubbles.map((bubble) =>
       bubble.id === id ? { ...bubble, value } : bubble
     );
-    setShowTextBubble(updatedBubbles);
+    setBubbles(updatedBubbles);
   };
 
   const removeBubble = (id) => {
-    const updatedBubbles = showTextBubble.filter((bubble) => bubble.id !== id);
-    setShowTextBubble(updatedBubbles);
+    const updatedBubbles = bubbles.filter((bubble) => bubble.id !== id);
+    setBubbles(updatedBubbles);
   };
 
   return (
@@ -90,117 +90,139 @@ const WorkSpace = () => {
           </button>
         </div>
       </nav>
-      <div className={`${styles.container} ${styles[themeMode]}`}>
-        <div className={`${styles.sidebar} ${styles[themeMode]}`}>
-          <div className={styles.sidebarContent}>
-            <h3 className={`${styles.bubble} ${styles[themeMode]}`}>Bubbles</h3>
-            <div className={styles.btnWrapper}>
-              <button
-                onClick={showBubble}
-                className={`${styles.button} ${styles[themeMode]}`}
-              >
-                <img src={bubbleText} alt="Text Bubble" />
-                Text
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={bubbleImg} alt="Image Bubble" />
-                Image
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={bubbleVdo} alt="Video Bubble" />
-                Video
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={bubbleGif} alt="GIF Bubble" />
-                GIF
-              </button>
-            </div>
-          </div>
-          <div className={styles.sidebarContent2}>
-            <h3 className={`${styles.bubble} ${styles[themeMode]}`}>Inputs</h3>
-            <div className={styles.btnWrapper}>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={text} alt="Text Input" />
-                Text
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={number} alt="Number Input" />
-                Number
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={email} alt="Email Input" />
-                Email
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={phone} alt="Phone Input" />
-                Phone
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={date} alt="Date Input" />
-                Date
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={rating} alt="Rating Input" />
-                Rating
-              </button>
-              <button className={`${styles.button} ${styles[themeMode]}`}>
-                <img src={button} alt="Button Input" />
-                Buttons
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className={styles.mainContent}>
-          <main className={styles.main}>
-            <div className={`${styles.mainHeading} ${styles[themeMode]}`}>
-              <img
-                src={imageSrc}
-                className={`${styles.flagImg} ${styles[themeMode]}`}
-                alt="Flag"
-              />
-              Start
-            </div>
-            {showTextBubble.map((bubble) => (
-              <div
-                key={bubble.id}
-                className={`${styles.bubbleInput} ${styles[themeMode]}`}
-              >
-                <label
-                  htmlFor={`bubble-${bubble.id}`}
-                  className={`${styles.label} ${styles[themeMode]}`}
+      {activeButton === "btnPrimary" ? (
+        <div className={`${styles.container} ${styles[themeMode]}`}>
+          <div className={`${styles.sidebar} ${styles[themeMode]}`}>
+            <div className={styles.sidebarContent}>
+              <h3 className={`${styles.bubble} ${styles[themeMode]}`}>
+                Bubbles
+              </h3>
+              <div className={styles.btnWrapper}>
+                <button
+                  onClick={() => showBubble("text")}
+                  className={`${styles.button} ${styles[themeMode]}`}
                 >
+                  <img src={bubbleText} alt="Text Bubble" />
                   Text
-                </label>
-                <figure className={styles.bubbleTextWrapper}>
-                  <img
-                    src={bubbleText}
-                    className={styles.inputLogo}
-                    alt="Bubble"
-                  />
-                </figure>
-                <figure
-                  className={styles.deleteSvgWrapper}
-                  onClick={() => removeBubble(bubble.id)}
+                </button>
+                <button
+                  onClick={() => showBubble("image")}
+                  className={`${styles.button} ${styles[themeMode]}`}
                 >
-                  <img
-                    src={deleteSvg}
-                    className={styles.deleteSvg}
-                    alt="Delete"
-                  />
-                </figure>
-                <input
-                  className={`${styles.inputBubble} ${styles[themeMode]}`}
-                  type="text"
-                  id={`bubble-${bubble.id}`}
-                  value={bubble.value}
-                  onChange={(e) => handleInputChange(bubble.id, e.target.value)}
-                  placeholder="Click to edit text"
-                />
+                  <img src={bubbleImg} alt="Image Bubble" />
+                  Image
+                </button>
+                <button
+                  className={`${styles.button} ${styles.disable} ${styles[themeMode]} $`}
+                >
+                  <img src={bubbleVdo} alt="Video Bubble" />
+                  Video
+                </button>
+                <button
+                  className={`${styles.button} ${styles.disable} ${styles[themeMode]}`}
+                >
+                  <img src={bubbleGif} alt="GIF Bubble" />
+                  GIF
+                </button>
               </div>
-            ))}
-          </main>
+            </div>
+            <div className={styles.sidebarContent2}>
+              <h3 className={`${styles.bubble} ${styles[themeMode]}`}>
+                Inputs
+              </h3>
+              <div className={styles.btnWrapper}>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={text} alt="Text Input" />
+                  Text
+                </button>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={number} alt="Number Input" />
+                  Number
+                </button>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={email} alt="Email Input" />
+                  Email
+                </button>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={phone} alt="Phone Input" />
+                  Phone
+                </button>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={date} alt="Date Input" />
+                  Date
+                </button>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={rating} alt="Rating Input" />
+                  Rating
+                </button>
+                <button className={`${styles.button} ${styles[themeMode]}`}>
+                  <img src={button} alt="Button Input" />
+                  Buttons
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.mainContent}>
+            <main className={styles.main}>
+              <div className={`${styles.mainHeading} ${styles[themeMode]}`}>
+                <img
+                  src={imageSrc}
+                  className={`${styles.flagImg} ${styles[themeMode]}`}
+                  alt="Flag"
+                />
+                Start
+              </div>
+
+              {bubbles.map((bubble) => (
+                <div
+                  key={bubble.id}
+                  className={`${styles.bubbleInput} ${styles[themeMode]}`}
+                >
+                  <label
+                    htmlFor={`bubble-${bubble.id}`}
+                    className={`${styles.label} ${styles[themeMode]}`}
+                  >
+                    {bubble.type === "text" ? "Text" : "Image"}
+                  </label>
+                  <figure className={styles.bubbleTextWrapper}>
+                    <img
+                      src={bubble.type === "text" ? bubbleText : bubbleImg}
+                      className={styles.inputLogo}
+                      alt="Bubble"
+                    />
+                  </figure>
+                  <figure
+                    className={styles.deleteSvgWrapper}
+                    onClick={() => removeBubble(bubble.id)}
+                  >
+                    <img
+                      src={deleteSvg}
+                      className={styles.deleteSvg}
+                      alt="Delete"
+                    />
+                  </figure>
+                  <input
+                    className={`${styles.inputBubble} ${styles[themeMode]}`}
+                    type="text"
+                    id={`bubble-${bubble.id}`}
+                    value={bubble.value}
+                    onChange={(e) =>
+                      handleInputChange(bubble.id, e.target.value)
+                    }
+                    placeholder={
+                      bubble.type === "text"
+                        ? "Click here to edit text"
+                        : "Click here to add image URL"
+                    }
+                  />
+                </div>
+              ))}
+            </main>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Response/>
+      )}
     </>
   );
 };

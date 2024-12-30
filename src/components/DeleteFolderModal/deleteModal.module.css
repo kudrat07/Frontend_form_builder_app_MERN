@@ -5,6 +5,8 @@
   right: 0;
   bottom: 0;
   z-index: 2;
+}
+.modal.light{
   background: #0009;
 }
 
@@ -14,7 +16,7 @@
   left: 332px;
   width: 420px;
   max-width: 80vw;
-  z-index: 10;
+  z-index: 1000;
   border: 1px solid #47474a;
   border-radius: 24px;
 }

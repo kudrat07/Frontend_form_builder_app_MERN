@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
-const DeleteModal = ({folderId, onClose, onFolderAdded, setClickedFolder, clickedFolder}) => {
+const DeleteModal = ({folderId, onClose, onFolderAdded, setClickedFolder, clickedFolder, setFolderId}) => {
   const {themeMode} = useTheme();
 
 
@@ -22,6 +22,7 @@ const DeleteModal = ({folderId, onClose, onFolderAdded, setClickedFolder, clicke
       if(response.ok) {
         toast.success("Folder Deleted")
         onFolderAdded();
+        setFolderId(null)
         if(clickedFolder === folderId){
           setClickedFolder(null)
         }
@@ -41,7 +42,7 @@ const DeleteModal = ({folderId, onClose, onFolderAdded, setClickedFolder, clicke
   return ( 
     <>
     <div
-     className={styles.modal}
+     className={`${styles.modal} ${styles[themeMode]}`}
         onClick={onClose}
      ></div>
     <div className={`${styles.overlay} ${styles[themeMode]}`}>

@@ -1,20 +1,27 @@
 import React from "react";
 import styles from "./shareModal.module.css";
 import useTheme from "../../contexts/Theme";
+import close from "../../assets/close.png"
 
 const ShareModal = ({ showShareModal }) => {
   const { themeMode } = useTheme();
   return (
     <div className={styles.container}>
-      <div onClick={showShareModal} className={styles.modal}></div>
+      <div onClick={showShareModal} className={`${styles.modal} ${styles[themeMode]}`}></div>
       <div className={`${styles.overlay} ${styles[themeMode]}`}>
         <div className={styles.modalContent}>
+        <figure className={styles.imgWrapper} onClick={showShareModal}>
+          <img src={close} alt=""/>
+        </figure>
           <div className={styles.headerWrapper}>
             <h2 className={`${styles.heading} ${styles[themeMode]}`}>
               Invite by Email
             </h2>
             <select className={`${styles.select} ${styles[themeMode]}`}>
-              <option className={`${styles.option}{styles[themeMode]}`}>
+              <option className={`${styles.option} ${styles[themeMode]}`}>
+                Select
+              </option>
+              <option className={`${styles.option} ${styles[themeMode]}`}>
                 Edit
               </option>
               <option className={`${styles.option} ${styles[themeMode]}`}>

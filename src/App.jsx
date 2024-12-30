@@ -8,22 +8,43 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import Settingpage from "./pages/SettingPage/SettingPage";
 import { ThemeProvider } from "./contexts/Theme";
 import WorkSpacePage from "./pages/WorkSpacePage/WorkSpacePage";
+import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoutes";
 
 const App = () => {
   return (
     <ThemeProvider>
-      <div>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/setting" element={<Settingpage />} />
-            <Route path="/workspace" element={<WorkSpacePage/>} />
+            <Route
+              path="/dashboard/:id"
+              element={
+                <ProtectedRoute>
+                  <DashboardPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/setting"
+              element={
+                <ProtectedRoute>
+                  <Settingpage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/workspace"
+              element={
+                <ProtectedRoute>
+                  <WorkSpacePage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </BrowserRouter>
-      </div>
+      
     </ThemeProvider>
   );
 };

@@ -88,7 +88,7 @@ const Register = () => {
             password: "",
             confirmPassword: "",
           });
-          navigate("/dashboard");
+          navigate(`/dashboard/${localStorage.getItem("userId", data.userId)}`);
         } else {
           toast.error(data.message || "Registration failed,  Try again!");
         }

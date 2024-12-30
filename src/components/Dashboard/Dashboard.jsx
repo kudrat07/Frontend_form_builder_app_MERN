@@ -9,31 +9,38 @@ import DeleteModal from "../DeleteFolderModal/DeleteModal";
 import DeleteFormModal from "../DeleteFormModal/DeleteFormModal";
 import ShareModal from "../ShareModal/ShareModal";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useTheme from "../../contexts/Theme";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [showFolderModal, setShowFolderModal] = useState(false);
   const [FormModal, setFormModal] = useState(false);
-  const [deleteFormModal, setDeleteFormModal] = useState(false);
   const [shareModal, setShareModal] = useState(false);
   const [folders, setFolders] = useState([]);
   const [forms, setForms] = useState({});
-  const navigate = useNavigate();
-  const [deleteFolder, setDeleteFolder] = useState(false);
-  const [folderId, setFolderId] = useState("");
+
   const [clickedFolder, setClickedFolder] = useState();
 
-  const token = localStorage.getItem("token");
+  const [deleteFolder, setDeleteFolder] = useState(false);
+  const [folderId, setFolderId] = useState(null);
+
+  // const [formId, setFormId] = useState(null);
+  const [deleteFormModal, setDeleteFormModal] = useState(false);
+  const [formId, setFormId] = useState(null);
+
   const username = localStorage.getItem("username");
+
+  const { id } = useParams();
 
   // fetching all folders
   const fetchFolders = async () => {
     try {
-      const response = await fetch(`${BACKEND_URL}/folder`);
+      const response = await fetch(`${BACKEND_URL}/folder/${id}`);
       if (!response.ok) {
         toast.error("HTTP Error");
       }
@@ -44,14 +51,11 @@ const Dashboard = () => {
     }
   };
 
-  const fetchForms = async (folderId= null) => {
+  const fetchForms = async (folderId = null) => {
     try {
-      
       const url = folderId
-      ? `${BACKEND_URL}/form/${folderId}`
-      : `${BACKEND_URL}/form`;
-
-
+        ? `${BACKEND_URL}/form/${id}/${folderId}`
+        : `${BACKEND_URL}/form/${id}`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -66,16 +70,11 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchFolders();
-  }, [])
-
+  }, []);
 
   useEffect(() => {
-    fetchForms(folderId)
-  }, [ folderId]);
-
-  const showDeleteFormModal = () => {
-    setDeleteFormModal((prev) => !prev);
-  };
+    fetchForms(folderId);
+  }, [FormModal, formId]);
 
   const showModal = () => {
     setShowFolderModal((prev) => !prev);
@@ -106,9 +105,13 @@ const Dashboard = () => {
   const handleFolderClick = (id) => {
     setFolderId(id);
     setClickedFolder(id);
-    fetchForms(id)
+    fetchForms(id);
   };
 
+  const deleteFormHandler = (id) => {
+    setFormId(id);
+    setDeleteFormModal(true);
+  };
 
   const { themeMode } = useTheme();
 
@@ -120,12 +123,10 @@ const Dashboard = () => {
             className={`${styles.select} ${styles[themeMode]}`}
             onChange={handleSelectChange}
           >
-            {token && (
-              <option className={`${styles.option} ${styles[themeMode]}`}>
-                {" "}
-                {username}'s workspace
-              </option>
-            )}
+            <option className={`${styles.option} ${styles[themeMode]}`}>
+              {" "}
+              {username}'s workspace
+            </option>
 
             <option className={`${styles.option} ${styles[themeMode]}`}>
               Setting
@@ -163,6 +164,7 @@ const Dashboard = () => {
               <CreateFolder
                 showModal={showModal}
                 onFolderAdded={fetchFolders}
+                userId = {id}
               />
             )}
 
@@ -170,14 +172,13 @@ const Dashboard = () => {
               folders.map((folder) => (
                 <div
                   key={folder._id}
-                  
                   className={`${styles.folder} ${
                     clickedFolder === folder._id ? styles.selectedFolder : ""
                   } ${styles[themeMode]}`}
                 >
-                  <button 
-                  onClick={() => handleFolderClick(folder._id)}
-                  className={`${styles.folderName} ${styles[themeMode]}`}
+                  <button
+                    onClick={() => handleFolderClick(folder._id)}
+                    className={`${styles.folderName} ${styles[themeMode]}`}
                   >
                     {folder.folderName}
                   </button>
@@ -193,6 +194,7 @@ const Dashboard = () => {
                       folderId={folderId}
                       setClickedFolder={setClickedFolder}
                       clickedFolder={clickedFolder}
+                      setFolderId={setFolderId}
                       onClose={() => setDeleteFolder(false)}
                     />
                   )}
@@ -209,6 +211,7 @@ const Dashboard = () => {
                   showFormModal={showFormModal}
                   folderId={folderId}
                   onFormAdded={fetchForms}
+                  userId = {id}
                 />
               )}
               <p className={styles.fileText}>Create a typebot</p>
@@ -216,13 +219,13 @@ const Dashboard = () => {
 
             {forms.length > 0 &&
               forms.map((form) => (
-                <div 
-                key={form._id}
-                className={`${styles.form} ${styles[themeMode]}`}
+                <div
+                  key={form._id}
+                  className={`${styles.form} ${styles[themeMode]}`}
                 >
                   <button
                     className={styles.deleteFormBtn}
-                    onClick={showDeleteFormModal}
+                    onClick={() => deleteFormHandler(form._id)}
                   >
                     <img
                       src={deleteSvg}
@@ -230,16 +233,21 @@ const Dashboard = () => {
                       className={styles.deleteIcon}
                     />
                   </button>
+
                   <p className={`${styles.formName} ${styles[themeMode]}`}>
                     {form.formName}
                   </p>
-                  {deleteFormModal && (
-                    <DeleteFormModal
-                      showDeleteFormModal={showDeleteFormModal}
-                    />
-                  )}
                 </div>
               ))}
+            {deleteFormModal && (
+              <DeleteFormModal
+                onClose={() => {
+                  setDeleteFormModal(false);
+                  setFormId(null);
+                }}
+                formId={formId}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
-const CreateFolder = ({ showModal, onFolderAdded }) => {
+const CreateFolder = ({ showModal, onFolderAdded, userId }) => {
   const [folderName, setFolderName] = useState("")
 
   const createFolder = async (e) => {
@@ -16,7 +16,7 @@ const CreateFolder = ({ showModal, onFolderAdded }) => {
       return;
     } 
     try {
-      const response = await fetch(`${BACKEND_URL}/folder`, {
+      const response = await fetch(`${BACKEND_URL}/folder/${userId}`, {
         method: "POST",
         headers:{
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const CreateFolder = ({ showModal, onFolderAdded }) => {
   const {themeMode} = useTheme();
   return (
     <>
-      <div className={styles.modal} onClick={showModal}></div>
+      <div className={`${styles.modal} ${styles[themeMode]}`} onClick={showModal}></div>
       <div className={`${styles.overlay} ${styles[themeMode]}`}>
         <div className={styles.container}>
           <h1 className={`${styles.title} ${styles[themeMode]}`}>Create New Folder</h1>
