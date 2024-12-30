@@ -33,8 +33,8 @@ const CreateFolder = ({ showModal, onFolderAdded, userId }) => {
       }
     } catch (error) {
       toast.error("Network error. Please try again")
-    }
-    showModal();
+    } finally{ showModal();}
+    
     
   };
 

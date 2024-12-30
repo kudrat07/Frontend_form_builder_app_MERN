@@ -22,14 +22,13 @@ const Dashboard = () => {
   const [FormModal, setFormModal] = useState(false);
   const [shareModal, setShareModal] = useState(false);
   const [folders, setFolders] = useState([]);
-  const [forms, setForms] = useState({});
+  const [forms, setForms] = useState([]);
 
   const [clickedFolder, setClickedFolder] = useState();
 
   const [deleteFolder, setDeleteFolder] = useState(false);
   const [folderId, setFolderId] = useState(null);
 
-  // const [formId, setFormId] = useState(null);
   const [deleteFormModal, setDeleteFormModal] = useState(false);
   const [formId, setFormId] = useState(null);
 
@@ -42,7 +41,7 @@ const Dashboard = () => {
     try {
       const response = await fetch(`${BACKEND_URL}/folder/${id}`);
       if (!response.ok) {
-        toast.error("HTTP Error");
+        toast.error("Something went wrong while fetching folders");
       }
       const results = await response.json();
       setFolders(results);
@@ -59,22 +58,30 @@ const Dashboard = () => {
 
       const response = await fetch(url);
       if (!response.ok) {
-        toast.error("Server Error");
+        toast.error("Something went wrong while fetching forms");
+        return;
       }
       const data = await response.json();
-      setForms(data);
+      setForms(data || []);
     } catch (error) {
       toast.error(error.message);
     }
   };
 
-  useEffect(() => {
-    fetchFolders();
-  }, []);
+  // useEffect(() => {
+    
+  // }, []);
 
   useEffect(() => {
-    fetchForms(folderId);
-  }, [FormModal, formId]);
+    fetchFolders();
+    if(folderId !== null) {
+      fetchForms(folderId);
+    }
+    else{
+      fetchForms()
+    }
+    
+  }, [ folderId, formId]);
 
   const showModal = () => {
     setShowFolderModal((prev) => !prev);
@@ -83,6 +90,7 @@ const Dashboard = () => {
   const showFormModal = () => {
     setFormModal((prev) => !prev);
   };
+
   const showShareModal = () => {
     setShareModal((prev) => !prev);
   };
@@ -164,7 +172,7 @@ const Dashboard = () => {
               <CreateFolder
                 showModal={showModal}
                 onFolderAdded={fetchFolders}
-                userId = {id}
+                userId={id}
               />
             )}
 
@@ -210,8 +218,8 @@ const Dashboard = () => {
                 <CreateFormModel
                   showFormModal={showFormModal}
                   folderId={folderId}
-                  onFormAdded={fetchForms}
-                  userId = {id}
+                  onFormAdded={()=>{fetchForms(folderId)}}
+                  userId={id}
                 />
               )}
               <p className={styles.fileText}>Create a typebot</p>
@@ -246,6 +254,8 @@ const Dashboard = () => {
                   setFormId(null);
                 }}
                 formId={formId}
+                setFormId={setFormId}
+                onFormAdded={() => fetchForms(folderId)}
               />
             )}
           </div>

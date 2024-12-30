@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-const CreateFormModel = ({ showFormModal, folderId, userId}) => {
+const CreateFormModel = ({ showFormModal, folderId, userId, onFormAdded}) => {
   const [formName, setFormName] = useState("");
 
   const formData = {
@@ -31,6 +31,7 @@ const CreateFormModel = ({ showFormModal, folderId, userId}) => {
       const data = await response.json();
       if (response.ok) {
         toast.success("Form Created");
+        onFormAdded();
         setFormName("");
       } else {
         toast.error(data.message || "Form Already exist");

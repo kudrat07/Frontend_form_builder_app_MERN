@@ -9,9 +9,11 @@ import footerSvg from "../../assets/footer-svg.png";
 
 const Landing = () => {
   const navigate = useNavigate();
-  const {id} = useParams()
+  const id = localStorage.getItem("userId")
+  
 
   useEffect(() => {
+    console.log(id)
     const token = localStorage.getItem("token");
     if(token){
       navigate(`/dashboard/${id}`)

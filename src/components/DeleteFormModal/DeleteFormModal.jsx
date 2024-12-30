@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
-const DeleteFormModal = ({onClose, formId}) => {
+const DeleteFormModal = ({onClose, formId, setFormId, onFormAdded}) => {
 
   const deleteFormHandler = async()  =>{
     try {
@@ -19,7 +19,9 @@ const DeleteFormModal = ({onClose, formId}) => {
       }
       if(response.ok) {
         toast.success("Form Deleted")
+        setFormId(formId)
         console.log("deleted form id ", formId)
+        // onFormAdded();
       }
 
     } catch (error) {

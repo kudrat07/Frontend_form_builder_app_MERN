@@ -56,6 +56,17 @@ const Register = () => {
       newError.password = "Password must contain atleast one special character";
     }
 
+    if(!formData.confirmPassword.trim()) {
+      newError.password = "Please confirm your password";
+    }
+    if(formData.confirmPassword) {
+      if(formData.password !== formData.confirmPassword) {
+        newError.confirmPassword = "Passwords do not match. Please try again"
+      }
+    }
+
+
+
     if (Object.keys(newError).length > 0) {
       toast.error(Object.values(newError)[0]);
       return false;
@@ -81,7 +92,7 @@ const Register = () => {
           toast.success("Registration successful");
           localStorage.setItem("token", data.token);
           localStorage.setItem("username",data.username)
-          localStorage.setItem("userId", data.userid)
+          localStorage.setItem("userId", data.userId)
           setFormData({
             name: "",
             email: "",

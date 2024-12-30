@@ -66,7 +66,7 @@ const Login = () => {
           toast.success("Logged in successfully!");
           localStorage.setItem("token", data.token);
           localStorage.setItem("username", data.username);
-          localStorage.setItem("userId", data.userId)
+          localStorage.setItem("userId", data.userId);
           setFormData({
             email: "",
             password: "",
