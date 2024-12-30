@@ -175,6 +175,10 @@
   background: #ffffff80;
 }
 
+.formName{
+  cursor: pointer;
+}
+
 .fileText,
 .formName {
   font-family: "Open Sans";

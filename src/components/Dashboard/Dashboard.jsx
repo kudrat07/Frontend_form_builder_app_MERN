@@ -68,9 +68,7 @@ const Dashboard = () => {
     }
   };
 
-  // useEffect(() => {
-    
-  // }, []);
+ 
 
   useEffect(() => {
     fetchFolders();
@@ -120,6 +118,13 @@ const Dashboard = () => {
     setFormId(id);
     setDeleteFormModal(true);
   };
+
+  const naviagetToWorkSpace = (formId) => {
+    console.log(formId)
+    localStorage.setItem("formId", formId)
+    toast.success("form clicked with form Id", formId);
+      navigate(`/workspace/${id}`)
+  }
 
   const { themeMode } = useTheme();
 
@@ -242,7 +247,10 @@ const Dashboard = () => {
                     />
                   </button>
 
-                  <p className={`${styles.formName} ${styles[themeMode]}`}>
+                  <p 
+                  onClick={() => naviagetToWorkSpace(form._id)}
+                  className={`${styles.formName} ${styles[themeMode]}`}
+                  >
                     {form.formName}
                   </p>
                 </div>

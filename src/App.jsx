@@ -35,7 +35,7 @@ const App = () => {
               }
             />
             <Route
-              path="/workspace"
+              path="/workspace/:id"
               element={
                 <ProtectedRoute>
                   <WorkSpacePage />

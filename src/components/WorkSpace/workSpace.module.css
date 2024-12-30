@@ -34,7 +34,6 @@
   flex-grow: 1;
   margin-top: 32px;
   margin-right: 240px;
-
 }
 .container.dark {
   background-color: #1f1f23;
@@ -72,7 +71,8 @@
 .input.light::placeholder {
   color: #767676d1;
 }
-.navBtnWrapper{
+
+.navBtnWrapper {
   display: flex;
   gap: 12px;
 }
@@ -192,7 +192,7 @@
   cursor: pointer;
   background-color: transparent;
 }
-.disable{
+.disable {
   cursor: no-drop;
 }
 .button.dark {
@@ -233,8 +233,8 @@
 .bubbleInput.dark {
   background-color: #18181b;
 }
-.bubbleInput.light{
-  border: 1px solid #D6D6D6
+.bubbleInput.light {
+  border: 1px solid #d6d6d6;
 }
 .deleteSvgWrapper,
 .bubbleTextWrapper {
@@ -256,7 +256,7 @@
   line-height: 21px;
   margin-bottom: 12px;
 }
-.label.dark{
+.label.dark {
   color: #fff;
 }
 .inputBubble {
@@ -269,7 +269,10 @@
   font-weight: 600;
   line-height: 21px;
   border-radius: 6px;
-  border: 1px solid #F55050
+  border: 1px solid #f55050;
+}
+.formInput{
+  border: none;
 }
 .inputBubble.dark {
   background-color: #1f1f23;
@@ -277,4 +280,12 @@
 }
 .inputBubble.dark::placeholder {
   color: #84848454;
+}
+
+.para {
+  font-family: "Open Sans";
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 21px;
+  color: #555555;
 }
