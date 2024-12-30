@@ -1,18 +1,20 @@
 import React, {useEffect} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Landing.css";
 import svgFormBot from "../../assets/SVG.png";
 import triangleSvg from "../../assets/triangular-svg.png";
 import curlySvg from "../../assets/curly-svg.png";
 import mainImg from "../../assets/Container.png";
 import footerSvg from "../../assets/footer-svg.png";
+
 const Landing = () => {
   const navigate = useNavigate();
+  const {id} = useParams()
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if(token){
-      navigate("/dashboard")
+      navigate(`/dashboard/${id}`)
     }
 
   }, [navigate])
