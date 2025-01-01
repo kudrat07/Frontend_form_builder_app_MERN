@@ -32,6 +32,11 @@ const Dashboard = () => {
   const [deleteFormModal, setDeleteFormModal] = useState(false);
   const [formId, setFormId] = useState(null);
 
+  const [owners, setOwners] = useState([]);
+  const [ownerId, setOwnerId] = useState([]);
+  const [permission, setPermission] = useState(false);
+  const [ownerName, selectOwnerName] = useState([]);
+
   const username = localStorage.getItem("username");
 
   const { id } = useParams();
@@ -42,6 +47,7 @@ const Dashboard = () => {
       const response = await fetch(`${BACKEND_URL}/folder/${id}`);
       if (!response.ok) {
         toast.error("Something went wrong while fetching folders");
+        return;
       }
       const results = await response.json();
       setFolders(results);
@@ -68,20 +74,37 @@ const Dashboard = () => {
     }
   };
 
- 
+  useEffect(() => {
+    const fetchOwner = async () => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/findOwner/${id}`);
+        if (!response.ok) {
+          toast.error("Something went wrong while fetching owner");
+          return;
+        }
+        const data = await response.json();
+        setOwners(data.owners);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+    fetchOwner();
+  }, []);
 
   useEffect(() => {
     fetchFolders();
-    if(folderId !== null) {
+    if (folderId !== null) {
       fetchForms(folderId);
+    } else {
+      fetchForms();
     }
-    else{
-      fetchForms()
-    }
-    
-  }, [ folderId, formId]);
+  }, [folderId, formId, id, ownerId]);
 
   const showModal = () => {
+    if (permission) {
+      toast.error("You don't have permission to create folder");
+      return;
+    }
     setShowFolderModal((prev) => !prev);
   };
 
@@ -103,9 +126,50 @@ const Dashboard = () => {
   };
 
   const handleSelectChange = (e) => {
-    if (e.target.value === "Setting") {
+    setPermission(false);
+    const selectedValue = e.target.value;
+
+    if (selectedValue === "Setting") {
       settingHander();
+      return;
     }
+
+    if (selectedValue === "Logout") {
+      logoutHandler();
+      return;
+    }
+
+    // Check if selectedValue matches the logged-in user's name
+    if (selectedValue === username) {
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        setOwnerId(userId); // Set the ownerId for the logged-in user
+        navigate(`/dashboard/${userId}`);
+      } else {
+        console.error("User ID not found in localStorage.");
+      }
+      return;
+    }
+
+    // Navigate to the selected owner's workspace
+    const currentUser = owners.find((owner) => owner.ownerId === selectedValue);
+
+    if (currentUser && currentUser.permission === "edit") {
+      console.log(currentUser);
+      setOwnerId(currentUser.ownerId);
+      navigate(`/dashboard/${currentUser.ownerId}`);
+    } else if (currentUser && currentUser.permission === "view") {
+      setPermission(true);
+      setOwnerId(currentUser.ownerId);
+      navigate(`/dashboard/${currentUser.ownerId}`);
+    } else {
+      console.error("Owner not found for the selected value:", selectedValue);
+    }
+  };
+
+  const logoutHandler = () => {
+    localStorage.clear();
+    navigate("/");
   };
 
   const handleFolderClick = (id) => {
@@ -120,11 +184,8 @@ const Dashboard = () => {
   };
 
   const naviagetToWorkSpace = (formId) => {
-    console.log(formId)
-    localStorage.setItem("formId", formId)
-    toast.success("form clicked with form Id", formId);
-      navigate(`/workspace/${id}`)
-  }
+    localStorage.setItem("formId", formId);
+  };
 
   const { themeMode } = useTheme();
 
@@ -136,10 +197,23 @@ const Dashboard = () => {
             className={`${styles.select} ${styles[themeMode]}`}
             onChange={handleSelectChange}
           >
-            <option className={`${styles.option} ${styles[themeMode]}`}>
+            <option
+              value={username}
+              className={`${styles.option} ${styles[themeMode]}`}
+            >
               {" "}
               {username}'s workspace
             </option>
+
+            {owners.map((owner) => (
+              <option
+                key={owner.ownerId}
+                value={owner.ownerId}
+                className={`${styles.option} ${styles[themeMode]}`}
+              >
+                {`${owner.ownerName}'s workspace`}{" "}
+              </option>
+            ))}
 
             <option className={`${styles.option} ${styles[themeMode]}`}>
               Setting
@@ -223,11 +297,18 @@ const Dashboard = () => {
                 <CreateFormModel
                   showFormModal={showFormModal}
                   folderId={folderId}
-                  onFormAdded={()=>{fetchForms(folderId)}}
+                  onFormAdded={() => {
+                    fetchForms(folderId);
+                  }}
                   userId={id}
                 />
               )}
-              <p className={styles.fileText}>Create a typebot</p>
+              <p
+                className={styles.fileText}
+                onClick={() => navigate(`/dashboard/${idd}`)}
+              >
+                Create a typebot
+              </p>
             </div>
 
             {forms.length > 0 &&
@@ -247,9 +328,9 @@ const Dashboard = () => {
                     />
                   </button>
 
-                  <p 
-                  onClick={() => naviagetToWorkSpace(form._id)}
-                  className={`${styles.formName} ${styles[themeMode]}`}
+                  <p
+                    onClick={() => naviagetToWorkSpace(form._id)}
+                    className={`${styles.formName} ${styles[themeMode]}`}
                   >
                     {form.formName}
                   </p>

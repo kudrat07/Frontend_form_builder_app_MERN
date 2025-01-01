@@ -8,6 +8,7 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import Settingpage from "./pages/SettingPage/SettingPage";
 import { ThemeProvider } from "./contexts/Theme";
 import WorkSpacePage from "./pages/WorkSpacePage/WorkSpacePage";
+import FormPage from "./pages/FormPage/FromPage"
 import ProtectedRoute from "./components/ProtectedRoutes/ProtectedRoutes";
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="/form" element={<FormPage/>} />
           </Routes>
         </BrowserRouter>
       
