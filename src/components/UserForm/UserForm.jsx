@@ -26,7 +26,6 @@ const UserForm = () => {
       setBubbles(bubble);
     } catch (error) {
       toast.error("Failed to fetch data from backend");
-      console.error(error);
     }
   };
 
