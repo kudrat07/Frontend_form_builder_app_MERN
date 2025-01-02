@@ -16,13 +16,16 @@ const UserForm = () => {
   const fetchResponse = async () => {
     try {
       const response = await fetch(`${BACKEND_URL}/bubble/${formId}`);
+      console.log("testing")
       if (!response.ok) {
         toast.error("Something went wrong");
         return;
       }
 
       const data = await response.json();
+      console.log(data)
       const bubble = data[0].bubbles;
+      console.log(bubble)
       setBubbles(bubble);
     } catch (error) {
       toast.error("Failed to fetch data from backend");
