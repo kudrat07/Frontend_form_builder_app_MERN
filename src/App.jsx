@@ -43,7 +43,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/form" element={<FormPage/>} />
+            <Route path="/form/:id" element={<FormPage/>} />
           </Routes>
         </BrowserRouter>
       

@@ -15,6 +15,8 @@ const Setting = () => {
   const { themeMode } = useTheme();
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [passwordVisibleNew, setPasswordVisibleNew] = useState(false);
+  const [emailVisible, setEmailVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,6 +28,16 @@ const Setting = () => {
     e.preventDefault();
     setPasswordVisible((prev) => !prev);
   };
+
+  const togglePasswordVisibilityNew = (e) => {
+    e.preventDefault();
+    setPasswordVisibleNew((prev) => !prev);
+  }
+
+  const toggleEmailVisibility = (e) => {
+    e.preventDefault();
+    setEmailVisible((prev) => !prev);
+  }
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
@@ -150,14 +162,16 @@ const Setting = () => {
           <div className={styles.inputContainer}>
             <img src={lockLogo} alt="logo" className={styles.inputIcon} />
             <input
-              type="email"
+              type={emailVisible ? "email" : "password"}
               name="email"
               value={formData.email}
               placeholder="Update Email"
               className={`${styles.input} ${styles[themeMode]}`}
               onChange={inputHandler}
             />
-            <button className={styles.viewBtn}>
+            <button 
+            onClick={toggleEmailVisibility}
+            className={styles.viewBtn}>
               <img src={viewLogo} alt="logo" />
             </button>
           </div>
@@ -181,7 +195,7 @@ const Setting = () => {
           <div className={styles.inputContainer}>
             <img src={lockLogo} alt="logo" className={styles.inputIcon} />
             <input
-              type={passwordVisible ? "text" : "password"}
+              type={passwordVisibleNew ? "text" : "password"}
               name="newPassword"
               placeholder="New Password"
               value={formData.newPassword}
@@ -190,7 +204,7 @@ const Setting = () => {
             />
             <button
               className={styles.viewBtn}
-              onClick={togglePasswordVisibility}
+              onClick={togglePasswordVisibilityNew}
             >
               <img src={viewLogo} alt="logo" />
             </button>

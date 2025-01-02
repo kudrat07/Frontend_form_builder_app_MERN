@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import styles from "./workSpace.module.css";
 import useTheme from "../../contexts/Theme";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
@@ -30,13 +30,25 @@ const WorkSpace = () => {
 
   const navigate = useNavigate();
 
+  const {id} = useParams();
+
+  console.log(id)
+
   const [activeButton, setActiveButton] = useState("btnPrimary");
   const [bubbles, setBubbles] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
 
   const showBubble = (type) => {
+    const submitButtonExists = bubbles.some((bubble) => bubble.type === "submitButton");
+  
+    if (submitButtonExists) {
+      toast.error("Submit button already added. No further additions allowed.");
+      return;
+    }
+  
     setBubbles([...bubbles, { id: bubbles.length, type, value: "" }]);
   };
+  
 
   const validateBubbles = () => {
     // Check if there is a submitButton in the bubbles array
@@ -59,29 +71,18 @@ const WorkSpace = () => {
       return false;
     }
   
-    // Check for any required inputs that are empty
-    const invalidBubbles = bubbles.filter(
-      (bubble) => requiredInputs.includes(bubble.type) && bubble.value.trim() === ""
-    );
-  
-    // If there are invalid (empty) required fields, show an error toast
-    if (invalidBubbles.length > 0) {
-      toast.error("Some required fields are empty. Please fill them out.");
-      return false;
-    }
   
     return true;
   };
   
 
 
-  const formId = localStorage.getItem('formId');
 
 
   const save = async () => {
     if (validateBubbles()) {
       try {
-        const response = await fetch(`${BACKEND_URL}/bubble/${formId}`, {
+        const response = await fetch(`${BACKEND_URL}/bubble/${id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -105,7 +106,8 @@ const WorkSpace = () => {
 
   const copyToClipboard = async() => {
     try {
-      const link = "https://kudrat-form-builder-app.vercel.app/form";
+      const link = `https://kudrat-form-builder-app.vercel.app/form/${id}`;
+      // const link = `http://localhost:5173/form/${id}`
       await navigator.clipboard.writeText(link);
       toast.success("Link copied to clipboard");
     } catch (error) {
@@ -133,11 +135,10 @@ const WorkSpace = () => {
     navigate(-1)
   }
 
-  console.log(isSaved);
 
 
   return (
-    <>
+    <div className={styles.topContainer}>
       <nav className={`${styles.nav} ${styles[themeMode]}`}>
         <div className={styles.inputWrapper}>
           <input
@@ -567,7 +568,7 @@ const WorkSpace = () => {
       ) : (
         <Response />
       )}
-    </>
+    </ div>
   );
 };
 
