@@ -185,6 +185,7 @@ const Dashboard = () => {
 
   const naviagetToWorkSpace = (formId) => {
     localStorage.setItem("formId", formId);
+    navigate(`/workspace/${formId}`);
   };
 
   const { themeMode } = useTheme();

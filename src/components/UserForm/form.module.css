@@ -1,0 +1,124 @@
+.container {
+  max-width: 980px;
+  width: 80vw;
+  margin: 80px auto;
+  padding: 20px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.bubbleContainer{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.bubble {
+    background-color: #f1f1f1;
+  padding: 16px;
+  border-radius: 15px;
+  max-width: 70%;
+  align-self: flex-start;
+  position: relative;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 600;
+
+}
+
+.bubbleUser {
+  background-color: #ff8e21;
+  align-self: flex-end;
+  color: #fff;
+  text-align: center;
+  min-width: 56px;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20.43px;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.inputForm {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  outline: none;
+}
+
+.input {
+  padding: 14px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 90%;
+  outline: none;
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.input::placeholder {
+  font-family: "Open Sans";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20.43px;
+}
+
+.inputForm button {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+}
+.sendIcon {
+  width: 100%;
+}
+
+.inputForm button:hover {
+  background-color: #0056b3;
+}
+
+/* 
+    MOBILE RESPONSIVENESS
+ */
+
+@media (max-width: 480px) {
+  .container {
+    margin: 16px 0;
+    width: 100%;
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+ .inputContainer{
+    margin-left: 40px;
+ }
+  .input{
+    width: 60%;
+  }
+  .bubble {
+    width: 60%;
+  }
+}

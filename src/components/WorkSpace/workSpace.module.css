@@ -95,9 +95,14 @@
 }
 
 .shareBtn {
-  background-color: #848890;
+  
   padding: 6px;
   border-radius: 6px;
+  background-color: #1A5FFF;
+}
+.shareBtn:disabled{
+  background-color: #848890;
+  cursor: not-allowed;
 }
 .saveBtn {
   border-radius: 6px;

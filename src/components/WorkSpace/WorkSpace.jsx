@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import styles from "./workSpace.module.css";
 import useTheme from "../../contexts/Theme";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
@@ -27,52 +28,92 @@ const WorkSpace = () => {
   const { themeMode } = useTheme();
   const imageSrc = themeMode === "light" ? blueFlag : flag;
 
+  const navigate = useNavigate();
+
   const [activeButton, setActiveButton] = useState("btnPrimary");
   const [bubbles, setBubbles] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const showBubble = (type) => {
     setBubbles([...bubbles, { id: bubbles.length, type, value: "" }]);
   };
 
   const validateBubbles = () => {
-    const requiredTypes = ["text", "bubbleText", "bubbleImage", "number"];
-    const invalidBubbles = bubbles.filter(
-      (bubble) => requiredTypes.includes(bubble.type) && bubble.value.trim() === ""
+    // Check if there is a submitButton in the bubbles array
+    const submitButtonExists = bubbles.some(bubble => bubble.type === "submitButton");
+  
+    // If no submitButton is found, show an error toast and return false
+    if (!submitButtonExists) {
+      toast.error("A submit button is required to submit the form.");
+      return false;
+    }
+  
+    // Check if there is at least one input field (text, number, etc.) and it's not empty
+    const requiredInputs = ["text", "bubbleText", "bubbleImage", "number", "email", "phone", "date", "rating"];
+    const inputExists = bubbles.some(
+      (bubble) => requiredInputs.includes(bubble.type) && bubble.value.trim() !== ""
     );
   
+    if (!inputExists) {
+      toast.error("You must select at least one input field with a value.");
+      return false;
+    }
+  
+    // Check for any required inputs that are empty
+    const invalidBubbles = bubbles.filter(
+      (bubble) => requiredInputs.includes(bubble.type) && bubble.value.trim() === ""
+    );
+  
+    // If there are invalid (empty) required fields, show an error toast
     if (invalidBubbles.length > 0) {
       toast.error("Some required fields are empty. Please fill them out.");
       return false;
     }
+  
     return true;
   };
+  
 
 
   const formId = localStorage.getItem('formId');
 
 
-  const save = async() => {
-      if(validateBubbles()){
-        try {
-          const response = await fetch(`${BACKEND_URL}/bubble/${formId}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({bubbles}),
-          });
-
-          const data = response.json();
-          if(response.ok)
-          toast.success("Saved");
+  const save = async () => {
+    if (validateBubbles()) {
+      try {
+        const response = await fetch(`${BACKEND_URL}/bubble/${formId}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ bubbles }),
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          toast.success("Saved successfully");
           setBubbles([]);
-        } catch (error) {
-            toast.error("Network error")
+          setIsSaved(true);
+        } else {
+          toast.error("Failed to save the form.");
         }
-          
+      } catch (error) {
+        toast.error("Network error");
       }
+    }
+  };
 
-  }
+  const copyToClipboard = async() => {
+    try {
+      const link = "https://kudrat-form-builder-app.vercel.app/form";
+      await navigator.clipboard.writeText(link);
+      toast.success("Link copied to clipboard");
+    } catch (error) {
+      toast.error("Failed to copy link to clipboard");
+      
+    }
+   };
+  
   
 
 
@@ -88,7 +129,12 @@ const WorkSpace = () => {
     setBubbles(updatedBubbles);
   };
 
-  console.log(bubbles)
+  const navigateToDashboard = () => {
+    navigate(-1)
+  }
+
+  console.log(isSaved);
+
 
   return (
     <>
@@ -126,7 +172,9 @@ const WorkSpace = () => {
         </div>
         <div className={styles.wrapper}>
           <button
+          onClick={copyToClipboard}
            className={`${styles.shareBtn} ${styles[themeMode]}`}
+           disabled = {!isSaved}
            >
             Share
           </button>
@@ -136,7 +184,9 @@ const WorkSpace = () => {
            >
             Save
           </button>
-          <button className={styles.closeBtn}>
+          <button 
+          onClick = {navigateToDashboard}
+          className={styles.closeBtn}>
             <img src={closeSvg} alt="close" />
           </button>
         </div>
@@ -231,7 +281,7 @@ const WorkSpace = () => {
                 </button>
 
                 <button
-                  onClick={() => showBubble("button")}
+                  onClick={() => showBubble("submitButton")}
                   className={`${styles.button} ${styles[themeMode]}`}
                 >
                   <img src={button} alt="Button Input" />
@@ -487,7 +537,7 @@ const WorkSpace = () => {
                   </div>
                 }
                 {
-                  bubble.type === "button" && 
+                  bubble.type === "submitButton" && 
                   <div className={`${styles.bubbleInput} ${styles[themeMode]}`}>
                     <label
                       htmlFor={`bubble-${bubble.id}`}
