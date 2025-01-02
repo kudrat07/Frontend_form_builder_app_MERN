@@ -4,6 +4,7 @@ import labelIcon from "../../assets/label-icon.png";
 import useTheme from "../../contexts/Theme";
 import styles from "./form.module.css";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -11,10 +12,11 @@ const UserForm = () => {
   const { themeMode } = useTheme();
   const [bubbles, setBubbles] = useState([]);
 
-  const formId = localStorage.getItem("formId");
+
 
   const fetchResponse = async () => {
     try {
+      console.log("formId", formId)
       const response = await fetch(`${BACKEND_URL}/bubble/${formId}`);
       console.log("testing")
       if (!response.ok) {
@@ -32,11 +34,15 @@ const UserForm = () => {
     }
   };
 
+  let formId;
+
   useEffect(() => {
+    formId  = localStorage.getItem("formId");
     fetchResponse();
   }, []);
 
-  console.log(bubbles);
+  
+
 
   return (
     <div className={styles.container}>

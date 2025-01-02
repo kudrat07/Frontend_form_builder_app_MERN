@@ -31,6 +31,7 @@ const WorkSpace = () => {
   const navigate = useNavigate();
 
   const {id} = useParams();
+  localStorage.setItem("formId", id);
 
   console.log(id)
 
