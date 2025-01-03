@@ -111,6 +111,13 @@
   max-width: 300px;
 }
 
+.rightContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
 /* 
     MOBILE RESPONSIVENESS
  */
